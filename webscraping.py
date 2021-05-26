@@ -15,7 +15,7 @@ print_news(scan_pages,min_upvotes,min_comments,desc_comments=False)
 
 '''
 import requests
-from bs4 import BeautifulSoup;
+from bs4 import BeautifulSoup
 
 def filter_news(scraped_data,min_upvotes,min_comments):
     '''
@@ -46,7 +46,7 @@ def filter_news(scraped_data,min_upvotes,min_comments):
     for i in range(len(story_list)):
         if(score_list[i].select('.score') ) and ('comments' in score_list[i].select('a[href^="item?id="]')[1].contents[0]):
             scores=int(score_list[i].select('.score')[0].contents[0].split(" ")[0])
-            comments=int(score_list[i].select('a[href^="item?id="]')[1].contents[0].split("comment")[0]);
+            comments=int(score_list[i].select('a[href^="item?id="]')[1].contents[0].split("comment")[0])
             if(scores>=min_upvotes and comments>min_comments):
                 hack_news.append({'topic':story_list[i].contents[0],'link':story_list[i]['href'],'votes':scores,'comments':comments})
 
@@ -64,7 +64,7 @@ def print_news(pages,min_upvotes,min_comments, desc_comments=False):
     If it is False they get printed in decresing order of upvotes. 
 
     '''
-    news_list =[];
+    news_list =[]
     for i in range(pages):
         if i==0:
             scraped_data=BeautifulSoup(requests.get('https://news.ycombinator.com/').text,'html.parser')
@@ -84,7 +84,7 @@ def print_news(pages,min_upvotes,min_comments, desc_comments=False):
     for result in news_list_desc:
         print()
         for k,v in result.items():
-            print(f"{k.capitalize()}:\t{v}");
+            print(f"{k.capitalize()}:\t{v}")
 
 if __name__=='__main__':
     scan_pages=10     
